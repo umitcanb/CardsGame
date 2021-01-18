@@ -28,7 +28,7 @@ final class Game{
     public $active_cards;
     public $history_cards;
 
-    function __construct(Array $players, int $turn_count, Array $active_cards, Array $history_cards) {
+    function __construct(Array $players = [], int $turn_count = 0, Array $active_cards = [], Array $history_cards = []) {
 
       $this->players = $players;
       $this->turn_count = $turn_count;
@@ -37,22 +37,19 @@ final class Game{
     
     }
 
-    function start_game() {
+    function startGame(int $numberOfPlayers) {
 
+      for ($x=0; $x < $numberOfPlayers; $x++){
+        array_push($this->players, new Player());
+      }
+      
       $deck = new Deck();
+      $deck->distributeCards($this->players);
+
+      return $this;
+    }
+    
 
     
-    }
-    function get_Name() {
-      return $this->Name;
-      }
-    function get_Score() {
-      return $this->Score;
-    }
-
-    public function takeTurns($playersList){
-      //sırayı bir sonrakine ver
-
-  }
 }
 
