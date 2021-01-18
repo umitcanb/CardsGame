@@ -7,12 +7,14 @@ final class Player{
     public $numberOfCards;
     public $history;
 
-    function __construct(Array $cards=[], int $turnCount=0, int $numberOfCards=0, Array $history=[]) {
+    function __construct(Array $cards=[], int $turnCount=0, int $numberOfCards=0, Array $history=[], String $name="Anonim") {
 
+    
       $this->cards = $cards;
       $this->turnCount = $turnCount;
       $this->numberOfCards = $numberOfCards;
       $this->history = $history;
+      $this->name = $name;
       }
    
 
@@ -22,6 +24,8 @@ final class Player{
       $randomCard = $this->cards[$randomCardIndex];
       array_push($this->history, $randomCard);
       array_splice($this->cards, $randomCardIndex, 1);
+      print("{$this->name} played : {$randomCard->value} {$randomCard->symbol->shape}, turn: {$this->turnCount}");
+
       return $randomCard;
 
     }
