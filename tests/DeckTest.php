@@ -1,6 +1,5 @@
 <?php
 use PHPUnit\Framework\TestCase;
-use App\Game;
 use App\Deck;
 use App\Card;
 use App\Player;

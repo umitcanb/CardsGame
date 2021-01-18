@@ -7,7 +7,7 @@ final class Player{
     public $numberOfCards;
     public $history;
 
-    function __construct(Array $cards=[], $turnCount=0, $numberOfCards=0, Array $history=[]) {
+    function __construct(Array $cards=[], int $turnCount=0, int $numberOfCards=0, Array $history=[]) {
 
       $this->cards = $cards;
       $this->turnCount = $turnCount;
@@ -16,7 +16,13 @@ final class Player{
       }
    
 
-    public function takeTurns($playersList){
+    public function play(){
+
+      $randomCardIndex = array_rand($this->cards, 1);
+      $randomCard = $this->cards[$randomCardIndex];
+      array_push($this->history, $randomCard);
+      array_splice($this->cards, $randomCardIndex, 1);
+      return $randomCard;
 
     }
 }
