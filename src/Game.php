@@ -40,8 +40,10 @@ final class Game{
 
     public function startGame(int $numberOfPlayers) {
 
-      for ($x=0; $x < $numberOfPlayers; $x++){
-        array_push($this->players, new Player());
+      $playerNames = $this->generatePlayerNames($numberOfPlayers);
+
+      for ($count=0; $count < $numberOfPlayers; $count++){
+        array_push($this->players, new Player( [], 0, 0, [], $playerNames[$count]));
       }
       
       $deck = new Deck();
@@ -63,7 +65,7 @@ final class Game{
 
     }
 
-    public function playGame(int $numberOfPlayers){
+    public function playAutomaticGame(int $numberOfPlayers){
 
       $this->startGame($numberOfPlayers);
 
@@ -75,7 +77,16 @@ final class Game{
       return $this;
       
     }
-    
+    private function generatePlayerNames(int $numberOfPlayers){
+      
+      $playerNames = [];
+      for ($count = 0; $count < $numberOfPlayers; $count++){
+        $playerName = "Player ".strval($count);
+        array_push($playerNames, $playerName);
+      }
+
+      return $playerNames;
+    }
 
     
 }

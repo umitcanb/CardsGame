@@ -51,7 +51,7 @@ final class GameTest extends TestCase
    
    public function test_play_game(){
       $game = new Game();
-      $game->playGame(4);
+      $game->playAutomaticGame(4);
 
       $this->assertEquals(4, count($game->active_cards));
       $this->assertEquals(52, count($game->history_cards));
