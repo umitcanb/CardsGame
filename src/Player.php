@@ -24,8 +24,8 @@ final class Player{
       $randomCard = $this->cards[$randomCardIndex];
       array_push($this->history, $randomCard);
       array_splice($this->cards, $randomCardIndex, 1);
-      print("{$this->name} played : {$randomCard->value} {$randomCard->symbol->shape}, turn: {$this->turnCount}");
-
+      $this->turnCount++;
+      print("{$this->name} played : {$randomCard->value} {$randomCard->symbol->shape}, turn: {$this->turnCount}"."\n");
       return $randomCard;
 
     }

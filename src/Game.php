@@ -1,6 +1,7 @@
 <?php
 namespace App;
 use App\Deck;
+use App\Player;
 
 /*
 In `game.py` create:
@@ -37,7 +38,7 @@ final class Game{
     
     }
 
-    function startGame(int $numberOfPlayers) {
+    public function startGame(int $numberOfPlayers) {
 
       for ($x=0; $x < $numberOfPlayers; $x++){
         array_push($this->players, new Player());
@@ -47,6 +48,32 @@ final class Game{
       $deck->distributeCards($this->players);
 
       return $this;
+    }
+
+    public function playRound(){
+
+      $this->active_cards = [];
+      foreach ($this->players as &$player){
+          $playedCard = $player->play();
+          array_push($this->history_cards, $playedCard);
+          array_push($this->active_cards, $playedCard);
+      }
+      $this->turn_count++;
+      return $this->active_cards;
+
+    }
+
+    public function playGame(int $numberOfPlayers){
+
+      $this->startGame($numberOfPlayers);
+
+      while (count($this->history_cards) < 52){
+        $this->playRound();
+      }
+
+      print ("Game ended");
+      return $this;
+      
     }
     
 
