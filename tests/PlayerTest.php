@@ -41,7 +41,19 @@ final class PlayerTest extends TestCase
       $this->assertContains($selectedCard, $player->history);
 
       
+
    }
+
+   public function test_cannot_play_if_selected_card_index_is_out_of_range(){
+      $cardsArray = [new Card(["red","♥"], "A"), new Card(["red","♦"], "1"), new Card(["black","♠"], "10")];
+      $player = new Player($cardsArray);
+
+      $selectedCard = $player->play(4);
+      $this->assertFalse($selectedCard);
+   }
+
+      /* The test below was meatn to test a private method that is already interacted by the public play method that is tested above. 
+
    public function test_check_if_index_number_is_in_the_range(){
 
       $cardsArray = [new Card(["red","♥"], "A"), new Card(["red","♦"], "1"), new Card(["black","♠"], "10")];
@@ -54,6 +66,7 @@ final class PlayerTest extends TestCase
       $this->assertFalse($inRange);
 
    }
+   */
 
     
 

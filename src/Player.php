@@ -29,6 +29,11 @@ final class Player{
 
     public function play(int $cardIndex){
 
+      if (!$this->checkIndexRange($cardIndex)){
+        print("the number indicated does not correspond to any card in your hand");
+        return False;
+      }
+
       $selectedCard = $this->cards[$cardIndex];
 
       array_push($this->history, $selectedCard);
@@ -51,15 +56,10 @@ final class Player{
     public function selectAndPlayCard(){
       $cardIndex = readline('Enter the index number of the card you want to play');
 
-      if (!$this->checkIndexRange($cardIndex)){
-        print("the number indicated does not correspond to any card in your hand");
-        return $this->selectAndPlayCard();
-      }
-
       $this->play($cardIndex);
     }
 
-    public function checkIndexRange(int $cardIndex){
+    private function checkIndexRange(int $cardIndex){
         return count($this->cards) > $cardIndex and $cardIndex >= 0;
     }
 
