@@ -28,34 +28,45 @@ final class GameTest extends TestCase
       $game = new Game();
 
       $game->startGame(4, "Ümit");
-      $firstRoundPlayedCards = $game->playRound();
+      $firstRoundPlayedCards = $game->playAutomaticRound();
 
       $this->assertEquals($game->active_cards, $firstRoundPlayedCards);
       $this->assertEquals(4, count($game->active_cards));
       $this->assertEquals(4, count($game->history_cards));
       $this->assertEquals(1, $game->turn_count);
 
-      $secondRoundPlayedCards = $game->playRound();
+      $secondRoundPlayedCards = $game->playAutomaticRound();
       $this->assertEquals($game->active_cards, $secondRoundPlayedCards);
       $this->assertEquals(8, count($game->history_cards));
       $this->assertEquals(2, $game->turn_count);
 
    }
-   public function test_cannot_play_a_round_before_starting_the_game(){
-      $game = new Game();
-      $firstRoundPlayedCards = $game->playRound();
-
-      $this->assertEquals(0, count($firstRoundPlayedCards));
-   }
-
    
-   public function test_play_game(){
+   public function test_play_automatic_game(){
       $game = new Game();
       $game->playAutomaticGame(4, "Ümit");
 
       $this->assertEquals(4, count($game->active_cards));
       $this->assertEquals(52, count($game->history_cards));
       $this->assertEquals(52 / 4, $game->turn_count);
+
+   }
+   
+   public function test_play_round(){
+      $game = new Game();
+      $game = $game->startGame(4, "Ümit");
+
+      $game->playRound();
+
+      $this->assertEquals(4, count($game->active_cards));
+      $this->assertEquals(4, count($game->history_cards));
+      $this->assertEquals(1, $game->turn_count);
+
+      $game->playRound();
+
+      $this->assertEquals(4, count($game->active_cards));
+      $this->assertEquals(8, count($game->history_cards));
+      $this->assertEquals(2, $game->turn_count);
 
    }
    

@@ -38,7 +38,7 @@ final class Game{
     
     }
 
-    public function startGame(int $numberOfPlayers, String $playerName) {
+    public function startGame(int $numberOfPlayers, ?String $playerName) {
 
       $playerNames = $this->generatePlayerNames($numberOfPlayers);
 
@@ -54,11 +54,11 @@ final class Game{
       return $this;
     }
 
-    public function playRound(){
+    public function playAutomaticRound(){
 
       $this->active_cards = [];
       foreach ($this->players as &$player){
-          $playedCard = $player->play();
+          $playedCard = $player->playRandomCard();
           array_push($this->history_cards, $playedCard);
           array_push($this->active_cards, $playedCard);
       }
@@ -72,13 +72,35 @@ final class Game{
       $this->startGame($numberOfPlayers, $nameOfPlayer);
 
       while (count($this->history_cards) < 52){
-        $this->playRound();
+        $this->playAutomaticRound();
       }
-
       print ("Game ended");
       return $this;
       
     }
+
+    public function playRound(){
+
+      $this->active_cards = [];
+
+      $this->players[0]->showCards(); 
+
+      $playedCard = $this->players[0]->selectAndPlayCard();
+
+      array_push($this->history_cards, $playedCard);
+      array_push($this->active_cards, $playedCard);
+
+      for ($count = 1; $count <count($this->players); $count++){
+          $playedCard = $this->players[$count]->playRandomCard();
+          array_push($this->history_cards, $playedCard);
+          array_push($this->active_cards, $playedCard);
+      }
+      $this->turn_count++;
+      return $this->active_cards;
+    }
+
+
+
     private function generatePlayerNames(int $numberOfPlayers){
       
       $playerNames = [];
@@ -89,6 +111,10 @@ final class Game{
 
       return $playerNames;
     }
+
+    
+
+    
 
     
 }
