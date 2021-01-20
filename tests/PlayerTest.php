@@ -49,7 +49,7 @@ final class PlayerTest extends TestCase
       $player = new Player($cardsArray);
 
       $selectedCard = $player->play(4);
-      $this->assertFalse($selectedCard);
+      $this->assertEquals($selectedCard, $player->selectAndPlayCard());
    }
 
       /* The test below was meatn to test a private method that is already interacted by the public play method that is tested above. 

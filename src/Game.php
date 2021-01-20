@@ -99,6 +99,21 @@ final class Game{
       return $this->active_cards;
     }
 
+    public function playConsoleGame(){
+
+      $numberOfPlayers = readline('How many players will play including yourself? :');
+
+      $nameOfPlayer = strval(readline("What's your name?:"));
+      
+      $this->startGame($numberOfPlayers, $nameOfPlayer);
+
+      while (count($this->history_cards) < 52){
+        $this->playRound();
+      }
+      print ("Game ended");
+      return $this;
+
+    }
 
 
     private function generatePlayerNames(int $numberOfPlayers){
