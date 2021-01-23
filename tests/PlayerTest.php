@@ -41,17 +41,17 @@ final class PlayerTest extends TestCase
       $this->assertContains($selectedCard, $player->history);
 
    }
-   
 
    public function test_cannot_play_if_selected_card_index_is_out_of_range(){
       $cardsArray = [new Card(["red","♥"], "A"), new Card(["red","♦"], "1"), new Card(["black","♠"], "10")];
       $player = new Player($cardsArray);
 
       $selectedCard = $player->play(4);
-      $this->assertEquals($selectedCard, $player->selectAndPlayCard());
+
+      $this->expectOutputString("the number indicated does not correspond to any card in your hand");
+      
    }
 
-   */
 
       /* The test below was meatn to test a private method that is already interacted by the public play method that is tested above. 
 

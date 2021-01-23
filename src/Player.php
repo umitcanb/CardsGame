@@ -6,8 +6,9 @@ final class Player{
     public $turnCount;
     public $numberOfCards;
     public $history;
+    public $score;
 
-    function __construct(Array $cards=[], int $turnCount=0, int $numberOfCards=0, Array $history=[], String $name="Anonim") {
+    function __construct(Array $cards=[], int $turnCount=0, int $numberOfCards=0, Array $history=[], String $name="Anonim", int $score=0) {
 
     
       $this->cards = $cards;
@@ -15,6 +16,7 @@ final class Player{
       $this->numberOfCards = $numberOfCards;
       $this->history = $history;
       $this->name = $name;
+      $this->score = $score;
       }
    
 
@@ -39,7 +41,7 @@ final class Player{
       array_push($this->history, $selectedCard);
       array_splice($this->cards, $cardIndex, 1);
       $this->turnCount++;
-      print("{$this->name} played : {$selectedCard->value} {$selectedCard->symbol->shape}, turn: {$this->turnCount}"."\n");
+      print("{$this->name} (score:{$this->score}) played : {$selectedCard->value} {$selectedCard->symbol->shape}, turn: {$this->turnCount}"."\n");
       return $selectedCard;
     }
 
