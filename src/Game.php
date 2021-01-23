@@ -73,6 +73,8 @@ final class Game{
 
       while (count($this->history_cards) < 52){
         $this->playAutomaticRound();
+        $roundWinner = $this->findRoundWinner();
+        $roundWinner->score++;
       }
       print ("Game ended");
       return $this;
@@ -96,7 +98,33 @@ final class Game{
           array_push($this->active_cards, $playedCard);
       }
       $this->turn_count++;
+      
       return $this->active_cards;
+    }
+
+    public function findRoundWinner(){
+      
+      $symbols =["♥", "♦", "♣", "♠"];
+      $values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+      $winnerPlayerIndex = 0;
+      $winnerCard = $this->active_cards[0];
+      
+      for ($count = 0 ; $count < count($this->players); $count++){
+        if (array_search($this->active_cards[$count]->value, $values) > array_search($winnerCard->value, $values)){
+          $winnerPlayerIndex = $count;
+          $winnerCard = $this->active_cards[$count];
+        }
+        if ($this->active_cards[$count]->value == $winnerCard->value){
+          if (array_search($this->active_cards[$count]->symbol->shape, $symbols) < array_search($winnerCard->symbol->shape, $symbols)){
+            $winnerPlayerIndex = $count;
+            $winnerCard = $this->active_cards[$count];
+          }
+        }
+      }
+      
+      print("{$this->players[$winnerPlayerIndex]->name} has won this round with the card {$winnerCard->value}, {$winnerCard->symbol->shape}."."\n"."Active Cards: {$this->active_cards[0]->value}");
+      return $this->players[$winnerPlayerIndex];
+      
     }
 
     public function playConsoleGame(){
@@ -109,8 +137,10 @@ final class Game{
 
       while (count($this->history_cards) < 52){
         $this->playRound();
+        $roundWinner = $this->findRoundWinner();
+        $roundWinner->score++;
       }
-      print ("Game ended");
+      print ("Game ended"."\n");
       return $this;
 
     }

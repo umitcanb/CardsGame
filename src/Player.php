@@ -54,9 +54,9 @@ final class Player{
     }
 
     public function selectAndPlayCard(){
-      $cardIndex = readline('Enter the index number of the card you want to play')-1;
+      $cardIndex = intval(readline('Enter the index number of the card you want to play')-1);
 
-      $this->play($cardIndex);
+      return $this->play($cardIndex);
     }
 
     private function checkIndexRange(int $cardIndex){
