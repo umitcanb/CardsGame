@@ -5,14 +5,14 @@ use App\Player;
 
 final class Game{
     private $players;
-    public $turn_count;
+    private $turnCount;
     public $active_cards;
     public $history_cards;
 
-    function __construct(Array $players = [], int $turn_count = 0, Array $active_cards = [], Array $history_cards = []) {
+    function __construct(Array $players = [], int $turnCount = 0, Array $active_cards = [], Array $history_cards = []) {
 
       $this->players = $players;
-      $this->turn_count = $turn_count;
+      $this->turnCount = $turnCount;
       $this->active_cards = $active_cards;
       $this->history_cards = $history_cards;
     
@@ -20,6 +20,10 @@ final class Game{
 
     public function getPlayers(){
       return $this->players;
+    }
+
+    public function getTurnCount(){
+      return $this->turnCount;
     }
 
     public function startGame(int $numberOfPlayers, ?String $playerName) {
@@ -46,7 +50,7 @@ final class Game{
           array_push($this->history_cards, $playedCard);
           array_push($this->active_cards, $playedCard);
       }
-      $this->turn_count++;
+      $this->turnCount++;
       $roundWinner = $this->findRoundWinner($this->active_cards);
       self::addScoreToRoundWinner($roundWinner);
 
@@ -82,7 +86,7 @@ final class Game{
           array_push($this->history_cards, $playedCard);
           array_push($this->active_cards, $playedCard);
       }
-      $this->turn_count++;
+      $this->turnCount++;
 
       $roundWinner = $this->findRoundWinner($this->active_cards);
       self::addScoreToRoundWinner($roundWinner);

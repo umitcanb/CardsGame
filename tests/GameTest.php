@@ -16,7 +16,7 @@ final class GameTest extends TestCase
       $this->assertEquals(count($game->getPlayers()), 4);
       $this->assertEquals(count($game->getPlayers()[0]->getCards()), 13);
       $this->assertNotEquals($game->getPlayers()[0]->getCards(), $game->getPlayers()[1]->getCards());
-      $this->assertEquals($game->turn_count, 0);
+      $this->assertEquals($game->getTurnCount(), 0);
 
       $game2 = new Game();
       $game2->startGame(2, "Ümit");
@@ -35,12 +35,12 @@ final class GameTest extends TestCase
       $this->assertEquals($game->active_cards, $this->active_cards);
       $this->assertEquals(4, count($game->active_cards));
       $this->assertEquals(4, count($game->history_cards));
-      $this->assertEquals(1, $game->turn_count);
+      $this->assertEquals(1, $game->getTurnCount());
 
       $secondRoundPlayedCards = $game->playAutomaticRound();
       $this->assertEquals($game->active_cards, $secondRoundPlayedCards);
       $this->assertEquals(8, count($game->history_cards));
-      $this->assertEquals(2, $game->turn_count);
+      $this->assertEquals(2, $game->getTurnCount());
 
    }
    
@@ -50,7 +50,7 @@ final class GameTest extends TestCase
 
       $this->assertEquals(4, count($game->active_cards));
       $this->assertEquals(52, count($game->history_cards));
-      $this->assertEquals(52 / 4, $game->turn_count);
+      $this->assertEquals(52 / 4, $game->getTurnCount());
 
    }
 
@@ -62,13 +62,13 @@ final class GameTest extends TestCase
 
       $this->assertEquals(4, count($game->active_cards));
       $this->assertEquals(4, count($game->history_cards));
-      $this->assertEquals(1, $game->turn_count);
+      $this->assertEquals(1, $game->getTurnCount());
 
       $game->playRound();
 
       $this->assertEquals(4, count($game->active_cards));
       $this->assertEquals(8, count($game->history_cards));
-      $this->assertEquals(2, $game->turn_count);
+      $this->assertEquals(2, $game->getTurnCount());
 
    }
    
