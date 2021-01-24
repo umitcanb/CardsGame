@@ -3,7 +3,7 @@ namespace App;
 
 final class Player{
     protected $cards;
-    public $turnCount;
+    protected $turnCount;
     public $numberOfCards;
     public $history;
     public $score;
