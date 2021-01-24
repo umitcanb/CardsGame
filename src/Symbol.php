@@ -2,8 +2,8 @@
 namespace App;
 
 final class Symbol{
-    public $color;
-    public $shape;
+    private $color;
+    private $shape;
 
     function __construct(String $color, String $shape) {
       $this->color = $color;

@@ -61,7 +61,7 @@ final class Player{
       array_push($this->history, $selectedCard);
       array_splice($this->cards, $cardIndex, 1);
       $this->turnCount++;
-      print("{$this->name} (score:{$this->score}) played : {$selectedCard->getValue()} {$selectedCard->getSymbol()->shape}, turn: {$this->turnCount}"."\n");
+      print("{$this->name} (score:{$this->score}) played : {$selectedCard->getValue()} {$selectedCard->getSymbol()->getShape()}, turn: {$this->turnCount}"."\n");
       return $selectedCard;
     }
 
@@ -69,7 +69,7 @@ final class Player{
       $count = 1;
       print("Your deck: "."\n");
       foreach ($this->cards as &$card){
-        print("{$card->getSymbol()->shape} {$card->getValue()}, n#{$count}"."\n");
+        print("{$card->getSymbol()->getShape()} {$card->getValue()}, n#{$count}"."\n");
         $count++;
       }
       return $this->cards;

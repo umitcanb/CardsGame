@@ -122,14 +122,14 @@ final class Game{
           $winnerCard = $lastPlayedCards[$count];
         }
         if ($lastPlayedCards[$count]->getValue() == $winnerCard->getValue()){
-          if (array_search($lastPlayedCards[$count]->getSymbol()->shape, $symbols) < array_search($winnerCard->getSymbol()->shape, $symbols)){
+          if (array_search($lastPlayedCards[$count]->getSymbol()->getShape(), $symbols) < array_search($winnerCard->getSymbol()->getShape(), $symbols)){
             $winnerPlayerIndex = $count;
             $winnerCard = $lastPlayedCards[$count];
           }
         }
       }
       
-      print("{$this->players[$winnerPlayerIndex]->name} has won this round with the card {$winnerCard->getValue()}, {$winnerCard->getSymbol()->shape}."."\n");
+      print("{$this->players[$winnerPlayerIndex]->name} has won this round with the card {$winnerCard->getValue()}, {$winnerCard->getSymbol()->getShape()}."."\n");
       return $this->players[$winnerPlayerIndex];
       
     }
