@@ -6,15 +6,15 @@ use App\Player;
 final class Game{
     private $players;
     private $turnCount;
-    public $active_cards;
-    public $history_cards;
+    private $activeCards;
+    private $historyCards;
 
-    function __construct(Array $players = [], int $turnCount = 0, Array $active_cards = [], Array $history_cards = []) {
+    function __construct(Array $players = [], int $turnCount = 0, Array $activeCards = [], Array $historyCards = []) {
 
       $this->players = $players;
       $this->turnCount = $turnCount;
-      $this->active_cards = $active_cards;
-      $this->history_cards = $history_cards;
+      $this->activeCards = $activeCards;
+      $this->historyCards = $historyCards;
     
     }
 
@@ -24,6 +24,21 @@ final class Game{
 
     public function getTurnCount(){
       return $this->turnCount;
+    }
+
+    public function getActiveCards(){
+      return $this->activeCards;
+    }
+
+    public function setActiveCards(Array $cards){
+      foreach ($cards as &$card){
+        array_push($this->activeCards, $card);
+      }
+      return $this->activeCards;
+    }
+
+    public function getHistoryCards(){
+      return $this->historyCards;
     }
 
     public function startGame(int $numberOfPlayers, ?String $playerName) {
@@ -44,17 +59,17 @@ final class Game{
 
     public function playAutomaticRound(){
 
-      $this->active_cards = [];
+      $this->activeCards = [];
       foreach ($this->players as &$player){
           $playedCard = $player->playRandomCard();
-          array_push($this->history_cards, $playedCard);
-          array_push($this->active_cards, $playedCard);
+          array_push($this->historyCards, $playedCard);
+          array_push($this->activeCards, $playedCard);
       }
       $this->turnCount++;
-      $roundWinner = $this->findRoundWinner($this->active_cards);
+      $roundWinner = $this->findRoundWinner($this->activeCards);
       self::addScoreToRoundWinner($roundWinner);
 
-      return $this->active_cards;
+      return $this->activeCards;
 
     }
 
@@ -62,7 +77,7 @@ final class Game{
 
       $this->startGame($numberOfPlayers, $nameOfPlayer);
 
-      while (count($this->history_cards) < 52){
+      while (count($this->historyCards) < 52){
         $this->playAutomaticRound();
       }
       $this->findGameWinner();
@@ -72,26 +87,26 @@ final class Game{
 
     public function playRound(){
 
-      $this->active_cards = [];
+      $this->activeCards = [];
 
       $this->players[0]->showCards(); 
 
       $playedCard = $this->players[0]->selectAndPlayCard();
 
-      array_push($this->history_cards, $playedCard);
-      array_push($this->active_cards, $playedCard);
+      array_push($this->historyCards, $playedCard);
+      array_push($this->activeCards, $playedCard);
 
       for ($count = 1; $count <count($this->players); $count++){
           $playedCard = $this->players[$count]->playRandomCard();
-          array_push($this->history_cards, $playedCard);
-          array_push($this->active_cards, $playedCard);
+          array_push($this->historyCards, $playedCard);
+          array_push($this->activeCards, $playedCard);
       }
       $this->turnCount++;
 
-      $roundWinner = $this->findRoundWinner($this->active_cards);
+      $roundWinner = $this->findRoundWinner($this->activeCards);
       self::addScoreToRoundWinner($roundWinner);
       
-      return $this->active_cards;
+      return $this->activeCards;
     }
 
     public function findRoundWinner(Array $lastPlayedCards){
@@ -133,7 +148,7 @@ final class Game{
       
       $this->startGame($numberOfPlayers, $nameOfPlayer);
 
-      while (count($this->history_cards) < 52){
+      while (count($this->historyCards) < 52){
         $this->playRound();
       }
 

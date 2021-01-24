@@ -30,16 +30,17 @@ final class GameTest extends TestCase
       $game = new Game();
 
       $game->startGame(4, "Ümit");
-      $this->active_cards = $game->playAutomaticRound();
+      $cardsPlayed = $game->playAutomaticRound();
+     // $this->setActiveCards($gcardsPlayed);
 
-      $this->assertEquals($game->active_cards, $this->active_cards);
-      $this->assertEquals(4, count($game->active_cards));
-      $this->assertEquals(4, count($game->history_cards));
+      $this->assertEquals($game->getActiveCards(), $game->getActiveCards());
+      $this->assertEquals(4, count($game->getActiveCards()));
+      $this->assertEquals(4, count($game->getHistoryCards()));
       $this->assertEquals(1, $game->getTurnCount());
 
       $secondRoundPlayedCards = $game->playAutomaticRound();
-      $this->assertEquals($game->active_cards, $secondRoundPlayedCards);
-      $this->assertEquals(8, count($game->history_cards));
+      $this->assertEquals($game->getActiveCards(), $secondRoundPlayedCards);
+      $this->assertEquals(8, count($game->getHistoryCards()));
       $this->assertEquals(2, $game->getTurnCount());
 
    }
@@ -48,8 +49,8 @@ final class GameTest extends TestCase
       $game = new Game();
       $game->playAutomaticGame(4, "Ümit");
 
-      $this->assertEquals(4, count($game->active_cards));
-      $this->assertEquals(52, count($game->history_cards));
+      $this->assertEquals(4, count($game->getActiveCards()));
+      $this->assertEquals(52, count($game->getHistoryCards()));
       $this->assertEquals(52 / 4, $game->getTurnCount());
 
    }
@@ -60,14 +61,14 @@ final class GameTest extends TestCase
 
       $game->playRound();
 
-      $this->assertEquals(4, count($game->active_cards));
-      $this->assertEquals(4, count($game->history_cards));
+      $this->assertEquals(4, count($game->getActiveCards()));
+      $this->assertEquals(4, count($game->getHistoryCards()));
       $this->assertEquals(1, $game->getTurnCount());
 
       $game->playRound();
 
-      $this->assertEquals(4, count($game->active_cards));
-      $this->assertEquals(8, count($game->history_cards));
+      $this->assertEquals(4, count($game->getActiveCards()));
+      $this->assertEquals(8, count($game->getHistoryCards()));
       $this->assertEquals(2, $game->getTurnCount());
 
    }
@@ -77,9 +78,11 @@ final class GameTest extends TestCase
       $game = new Game();
       $game->startGame(4, "Ümit");
 
-      $game->active_cards = [new Card(["red","♥"], "A"), new Card(["red","♥"], "1"), new Card(["red","♥"], "2"), new Card(["red","♥"], "J")];
+      $cardsToSet = [new Card(["red","♥"], "A"), new Card(["red","♥"], "1"), new Card(["red","♥"], "2"), new Card(["red","♥"], "J")];
 
-      $winnerPlayer = $game->findRoundWinner($game->active_cards);
+      $game->setActiveCards($cardsToSet);
+
+      $winnerPlayer = $game->findRoundWinner($game->getActiveCards());
       
       $this->assertEquals($game->getPlayers()[3], $winnerPlayer);
 
@@ -87,9 +90,11 @@ final class GameTest extends TestCase
       $game = new Game();
       $game->startGame(4, "Ümit");
 
-      $game->active_cards = [new Card(["red","♥"], "10"), new Card(["red","♦"], "10"), new Card(["black", "♠"], "10"), new Card(["black","♣"], "10")];
+      $cardsToSet = [new Card(["red","♥"], "10"), new Card(["red","♦"], "10"), new Card(["black", "♠"], "10"), new Card(["black","♣"], "10")];
 
-      $winnerPlayer = $game->findRoundWinner($game->active_cards);
+      $game->setActiveCards($cardsToSet);
+
+      $winnerPlayer = $game->findRoundWinner($game->getActiveCards());
 
       $this->assertEquals($game->getPlayers()[0], $winnerPlayer);
       
@@ -97,9 +102,11 @@ final class GameTest extends TestCase
       $game = new Game();
       $game->startGame(4, "Ümit");
 
-      $game->active_cards = [new Card(["red","♥"], "2"), new Card(["red","♦"], "Q"), new Card(["black", "♠"], "Q"), new Card(["black","♣"], "10")];
+      $cardsToSet = [new Card(["red","♥"], "2"), new Card(["red","♦"], "Q"), new Card(["black", "♠"], "Q"), new Card(["black","♣"], "10")];
 
-      $winnerPlayer = $game->findRoundWinner($game->active_cards);
+      $game->setActiveCards($cardsToSet);
+
+      $winnerPlayer = $game->findRoundWinner($game->getActiveCards());
 
       $this->assertEquals($game->getPlayers()[1], $winnerPlayer);
    
