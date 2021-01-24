@@ -44,8 +44,6 @@ final class Deck{
       for ($x = 0; $x < count($this->cards); $x++){
 
         $players[$x % count($players)]->addCardToPlayer($this->cards[$x]);
-
-        //array_push($players[$x % count($players)]->cards, $this->cards[$x]);
         
       }
 

@@ -4,7 +4,7 @@ use App\Deck;
 use App\Player;
 
 final class Game{
-    public $players;
+    private $players;
     public $turn_count;
     public $active_cards;
     public $history_cards;
@@ -16,6 +16,10 @@ final class Game{
       $this->active_cards = $active_cards;
       $this->history_cards = $history_cards;
     
+    }
+
+    public function getPlayers(){
+      return $this->players;
     }
 
     public function startGame(int $numberOfPlayers, ?String $playerName) {

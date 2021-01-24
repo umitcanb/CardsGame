@@ -13,16 +13,16 @@ final class GameTest extends TestCase
       $game = new Game();
       $game->startGame(4, "Ümit");
 
-      $this->assertEquals(count($game->players), 4);
-      $this->assertEquals(count($game->players[0]->getCards()), 13);
-      $this->assertNotEquals($game->players[0]->getCards(), $game->players[1]->getCards());
+      $this->assertEquals(count($game->getPlayers()), 4);
+      $this->assertEquals(count($game->getPlayers()[0]->getCards()), 13);
+      $this->assertNotEquals($game->getPlayers()[0]->getCards(), $game->getPlayers()[1]->getCards());
       $this->assertEquals($game->turn_count, 0);
 
       $game2 = new Game();
       $game2->startGame(2, "Ümit");
 
-      $this->assertEquals(count($game2->players), 2);
-      $this->assertEquals(count($game2->players[0]->getCards()), 26);
+      $this->assertEquals(count($game2->getPlayers()), 2);
+      $this->assertEquals(count($game2->getPlayers()[0]->getCards()), 26);
 
    }
 
@@ -81,7 +81,7 @@ final class GameTest extends TestCase
 
       $winnerPlayer = $game->findRoundWinner($game->active_cards);
       
-      $this->assertEquals($game->players[3], $winnerPlayer);
+      $this->assertEquals($game->getPlayers()[3], $winnerPlayer);
 
 
       $game = new Game();
@@ -91,7 +91,7 @@ final class GameTest extends TestCase
 
       $winnerPlayer = $game->findRoundWinner($game->active_cards);
 
-      $this->assertEquals($game->players[0], $winnerPlayer);
+      $this->assertEquals($game->getPlayers()[0], $winnerPlayer);
       
 
       $game = new Game();
@@ -101,7 +101,7 @@ final class GameTest extends TestCase
 
       $winnerPlayer = $game->findRoundWinner($game->active_cards);
 
-      $this->assertEquals($game->players[1], $winnerPlayer);
+      $this->assertEquals($game->getPlayers()[1], $winnerPlayer);
    
    }
 
@@ -124,23 +124,23 @@ final class GameTest extends TestCase
       $game = new Game();
       $game->startGame(4, "Ümit");
 
-      $game->players[0]->setScore(3);
-      $game->players[1]->setScore(2);
-      $game->players[2]->setScore(1);
+      $game->getPlayers()[0]->setScore(3);
+      $game->getPlayers()[1]->setScore(2);
+      $game->getPlayers()[2]->setScore(1);
 
       $winningPlayer = $game->findGameWinner();
 
 
-      $this->assertEquals($game->players[0], $winningPlayer);
+      $this->assertEquals($game->getPlayers()[0], $winningPlayer);
 
-      $game->players[0]->setScore(1);
-      $game->players[1]->setScore(5);
-      $game->players[2]->setScore(1);
+      $game->getPlayers()[0]->setScore(1);
+      $game->getPlayers()[1]->setScore(5);
+      $game->getPlayers()[2]->setScore(1);
 
       $winningPlayer = $game->findGameWinner();
 
 
-      $this->assertEquals($game->players[1], $winningPlayer);
+      $this->assertEquals($game->getPlayers()[1], $winningPlayer);
 
 
    }
@@ -150,9 +150,9 @@ final class GameTest extends TestCase
       $game = new Game();
       $game->startGame(4, "Ümit");
 
-      $game->players[0]->setScore(3);
-      $game->players[1]->setScore(3);
-      $game->players[2]->setScore(1);
+      $game->getPlayers()[0]->setScore(3);
+      $game->getPlayers()[1]->setScore(3);
+      $game->getPlayers()[2]->setScore(1);
 
       $winningPlayer = $game->findGameWinner();
       
