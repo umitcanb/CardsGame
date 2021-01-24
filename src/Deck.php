@@ -3,13 +3,17 @@ namespace App;
 use App\Card;
 
 final class Deck{
-    public $cards;
+    private $cards;
     
 
     function __construct() {
 
       $this->cards = self::createDeck();
       
+    }
+
+    public function getCards(){
+      return $this->cards;
     }
   
     private static function createDeck() {
@@ -29,7 +33,7 @@ final class Deck{
     public function shuffle(){
 
       shuffle($this->cards);
-      return $this->cards;
+      return $this;
 
     }
     

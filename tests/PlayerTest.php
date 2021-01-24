@@ -37,7 +37,7 @@ final class PlayerTest extends TestCase
       $this->assertEquals("A", $selectedCard->value);
       $this->assertEquals("♥", $selectedCard->symbol->shape);
       $this->assertContains($selectedCard, $cardsArray);
-      $this->assertNotContains($selectedCard, $player->cards);
+      $this->assertNotContains($selectedCard, $player->getCards());
       $this->assertContains($selectedCard, $player->getHistory());
 
    }
