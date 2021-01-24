@@ -14,7 +14,7 @@ final class PlayerTest extends TestCase
         $cardPlayed = $player->playRandomCard();
 
         $this->assertContains($cardPlayed, $cardsArray);
-        $this->assertNotContains($cardPlayed, $player->cards);
+        $this->assertNotContains($cardPlayed, $player->getCards());
         $this->assertContains($cardPlayed, $player->history);
 
    }

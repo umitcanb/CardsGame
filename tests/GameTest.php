@@ -14,15 +14,15 @@ final class GameTest extends TestCase
       $game->startGame(4, "Ümit");
 
       $this->assertEquals(count($game->players), 4);
-      $this->assertEquals(count($game->players[0]->cards), 13);
-      $this->assertNotEquals($game->players[0]->cards, $game->players[1]->cards);
+      $this->assertEquals(count($game->players[0]->getCards()), 13);
+      $this->assertNotEquals($game->players[0]->getCards(), $game->players[1]->getCards());
       $this->assertEquals($game->turn_count, 0);
 
       $game2 = new Game();
       $game2->startGame(2, "Ümit");
 
       $this->assertEquals(count($game2->players), 2);
-      $this->assertEquals(count($game2->players[0]->cards), 26);
+      $this->assertEquals(count($game2->players[0]->getCards()), 26);
 
    }
 

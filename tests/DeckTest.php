@@ -31,11 +31,11 @@ final class DeckTest extends TestCase
        $deck = new Deck();
        $players = [new Player(), new Player()];
        $playersWithCards = $deck->distributeCards($players);
-       $this->assertNotEquals(0, count($playersWithCards[0]->cards));
-       $this->assertFalse($playersWithCards[0]->cards == $playersWithCards[1]->cards);
-       $this->assertFalse($playersWithCards[0]->cards[0] == $playersWithCards[1]->cards[0]);
-       $this->assertFalse($playersWithCards[0]->cards[5] == $playersWithCards[1]->cards[5]);
-       $this->assertTrue(count($playersWithCards[0]->cards) == count($playersWithCards[1]->cards));
+       $this->assertNotEquals(0, count($playersWithCards[0]->getCards()));
+       $this->assertFalse($playersWithCards[0]->getCards() == $playersWithCards[1]->getCards());
+       $this->assertFalse($playersWithCards[0]->getCards()[0] == $playersWithCards[1]->getCards()[0]);
+       $this->assertFalse($playersWithCards[0]->getCards()[5] == $playersWithCards[1]->getCards()[5]);
+       $this->assertTrue(count($playersWithCards[0]->getCards()) == count($playersWithCards[1]->getCards()));
       
 
    }

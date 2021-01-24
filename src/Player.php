@@ -2,7 +2,7 @@
 namespace App;
 
 final class Player{
-    public $cards;
+    protected $cards;
     public $turnCount;
     public $numberOfCards;
     public $history;
@@ -17,6 +17,15 @@ final class Player{
       $this->history = $history;
       $this->name = $name;
       $this->score = $score;
+      }
+
+      public function getCards(){
+        return $this->cards;
+      }
+
+      public function addCardToPlayer(Card $card){
+        array_push($this->cards, $card);
+        return $this->cards;
       }
    
 
