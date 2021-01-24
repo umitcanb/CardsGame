@@ -112,8 +112,9 @@ final class Game{
     }
 
     private static function addScoreToRoundWinner(Player $winnerPlayer){
-        $winnerPlayer->score += 1;
-        return $winnerPlayer->score;
+        $newScore = $winnerPlayer->getScore += 1;
+        $winnerPlayer->setScore($newScore);
+        return $winnerPlayer->getScore();
     }
 
     public function playConsoleGame(){
@@ -136,7 +137,7 @@ final class Game{
     public function findGameWinner(){
       $winner = $this->players[0];
       foreach($this->players as &$player){
-        if ($player->score > $winner->score){
+        if ($player->getScore() > $winner->getScore()){
           $winner = $player;
         }
       }
@@ -146,14 +147,14 @@ final class Game{
         return Null;
       }
 
-      print ("The winner is {$winner->name} with the score {$winner->score}!");
+      print ("The winner is {$winner->name} with the score {$winner->getScore()}!");
       return $winner;
     }
 
     private function isTie(Player $winner){
 
       foreach ($this->players as &$player){
-        if ($player->score == $winner->score && $player != $winner){
+        if ($player->getScore() == $winner->getScore() && $player != $winner){
            return True; 
         }
       }

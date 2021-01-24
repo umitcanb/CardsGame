@@ -6,7 +6,7 @@ final class Player{
     protected $turnCount;
     protected $numberOfCards;
     protected $history;
-    public $score;
+    protected $score;
 
     function __construct(Array $cards=[], int $turnCount=0, int $numberOfCards=0, Array $history=[], String $name="Anonim", int $score=0) {
 
@@ -30,6 +30,13 @@ final class Player{
 
       public function getHistory(){
         return $this->history;
+      }
+      public function getScore(){
+        return $this->score;
+      }
+      public function setScore(int $score){
+        $this->score = $score;
+        return $this->score;
       }
    
 

@@ -115,7 +115,7 @@ final class GameTest extends TestCase
       $lastPlayedCards = $game->playAutomaticRound(); //it uses the private method addScoreToRoundWinner.
       $roundWinner = $game->findRoundWinner($lastPlayedCards);
 
-      $this->assertEquals(1, $roundWinner->score);
+      $this->assertEquals(1, $roundWinner->getScore());
       
    }
    
@@ -124,18 +124,18 @@ final class GameTest extends TestCase
       $game = new Game();
       $game->startGame(4, "Ümit");
 
-      $game->players[0]->score = 3;
-      $game->players[1]->score = 2;
-      $game->players[2]->score = 1;
+      $game->players[0]->setScore(3);
+      $game->players[1]->setScore(2);
+      $game->players[2]->setScore(1);
 
       $winningPlayer = $game->findGameWinner();
 
 
       $this->assertEquals($game->players[0], $winningPlayer);
 
-      $game->players[0]->score = 1;
-      $game->players[1]->score = 5;
-      $game->players[2]->score = 1;
+      $game->players[0]->setScore(1);
+      $game->players[1]->setScore(5);
+      $game->players[2]->setScore(1);
 
       $winningPlayer = $game->findGameWinner();
 
@@ -150,9 +150,9 @@ final class GameTest extends TestCase
       $game = new Game();
       $game->startGame(4, "Ümit");
 
-      $game->players[0]->score = 3;
-      $game->players[1]->score = 3;
-      $game->players[2]->score = 1;
+      $game->players[0]->setScore(3);
+      $game->players[1]->setScore(3);
+      $game->players[2]->setScore(1);
 
       $winningPlayer = $game->findGameWinner();
       
