@@ -4,8 +4,8 @@ namespace App;
 final class Player{
     protected $cards;
     protected $turnCount;
-    public $numberOfCards;
-    public $history;
+    protected $numberOfCards;
+    protected $history;
     public $score;
 
     function __construct(Array $cards=[], int $turnCount=0, int $numberOfCards=0, Array $history=[], String $name="Anonim", int $score=0) {
@@ -26,6 +26,10 @@ final class Player{
       public function addCardToPlayer(Card $card){
         array_push($this->cards, $card);
         return $this->cards;
+      }
+
+      public function getHistory(){
+        return $this->history;
       }
    
 
