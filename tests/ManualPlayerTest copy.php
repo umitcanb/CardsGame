@@ -1,28 +1,15 @@
 <?php
 use PHPUnit\Framework\TestCase;
-use App\Player;
+use App\ManualPlayer;
 use App\Card;
 
-final class PlayerTest extends TestCase
+final class ManualPlayerTest extends TestCase
 {
-    
-   public function test_player_plays_random(){
-       
-        $cardsArray = [new Card(["red","♥"], "A"), new Card(["red","♦"], "1"), new Card(["black","♠"], "10")];
-        $player = new Player($cardsArray);
-
-        $cardPlayed = $player->playRandomCard();
-
-        $this->assertContains($cardPlayed, $cardsArray);
-        $this->assertNotContains($cardPlayed, $player->getCards());
-        $this->assertContains($cardPlayed, $player->getHistory());
-
-   }
 
    public function test_show_cards(){
 
       $cardsArray = [new Card(["red","♥"], "A"), new Card(["red","♦"], "1"), new Card(["black","♠"], "10")];
-      $player = new Player($cardsArray);
+      $player = new ManualPlayer($cardsArray);
 
       $cardShowed = $player->showCards();
       $this->assertEquals($cardShowed, $cardsArray);

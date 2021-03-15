@@ -8,7 +8,7 @@ final class Card{
 
     function __construct(Array $symbol, String $value) {
 
-      $this->symbol = new Symbol($symbol[0], $symbol[1]);
+      $this->symbol = new Symbol($symbol[0], $symbol[1]);//instead of instantiating symbols, inject from the suits
       $this->value = $value;
     
     }

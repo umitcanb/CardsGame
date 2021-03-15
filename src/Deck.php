@@ -18,6 +18,8 @@ final class Deck{
   
     private static function createDeck() {
       $cards =[];
+      //this is called suits
+      //instead of the array, an array of symbol objects
       $symbols = [["red","♥"],["red","♦"],["black","♣"],["black","♠"]];
       $values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
 

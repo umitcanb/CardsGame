@@ -2,7 +2,7 @@
 use PHPUnit\Framework\TestCase;
 use App\Deck;
 use App\Card;
-use App\Player;
+use App\AutomaticPlayer;
 
 final class DeckTest extends TestCase
 {
@@ -30,7 +30,7 @@ final class DeckTest extends TestCase
    public function test_distribute_cards_to_players()
    {
        $deck = new Deck();
-       $players = [new Player(), new Player()];
+       $players = [new AutomaticPlayer(), new AutomaticPlayer()];
        $playersWithCards = $deck->distributeCards($players);
        $this->assertNotEquals(0, count($playersWithCards[0]->getCards()));
        $this->assertFalse($playersWithCards[0]->getCards() == $playersWithCards[1]->getCards());

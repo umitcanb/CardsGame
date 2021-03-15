@@ -1,25 +1,25 @@
 <?php
 use PHPUnit\Framework\TestCase;
-use App\Game;
+use App\AutomaticGame;
 use App\Card;
 use App\Player;
 
 
-final class GameTest extends TestCase
+final class AutomaticGameTest extends TestCase
 {
     
-   public function test_start_game(){
+   public function test_setup_game(){
       
-      $game = new Game();
-      $game->startGame(4, "Ümit");
+      $game = new AutomaticGame();
+      $game->setupGame(4);
 
       $this->assertEquals(count($game->getPlayers()), 4);
       $this->assertEquals(count($game->getPlayers()[0]->getCards()), 13);
       $this->assertNotEquals($game->getPlayers()[0]->getCards(), $game->getPlayers()[1]->getCards());
       $this->assertEquals($game->getTurnCount(), 0);
 
-      $game2 = new Game();
-      $game2->startGame(2, "Ümit");
+      $game2 = new AutomaticGame();
+      $game2->setupGame(2);
 
       $this->assertEquals(count($game2->getPlayers()), 2);
       $this->assertEquals(count($game2->getPlayers()[0]->getCards()), 26);
@@ -27,10 +27,10 @@ final class GameTest extends TestCase
    }
 
    public function test_play_an_automatic_round(){
-      $game = new Game();
+      $game = new AutomaticGame();
 
-      $game->startGame(4, "Ümit");
-      $cardsPlayed = $game->playAutomaticRound();
+      $game->setupGame(4);
+      $cardsPlayed = $game->playRound();
      // $this->setActiveCards($gcardsPlayed);
 
       $this->assertEquals($game->getActiveCards(), $game->getActiveCards());
@@ -38,7 +38,7 @@ final class GameTest extends TestCase
       $this->assertEquals(4, count($game->getHistoryCards()));
       $this->assertEquals(1, $game->getTurnCount());
 
-      $secondRoundPlayedCards = $game->playAutomaticRound();
+      $secondRoundPlayedCards = $game->playRound();
       $this->assertEquals($game->getActiveCards(), $secondRoundPlayedCards);
       $this->assertEquals(8, count($game->getHistoryCards()));
       $this->assertEquals(2, $game->getTurnCount());
@@ -46,8 +46,8 @@ final class GameTest extends TestCase
    }
    
    public function test_play_automatic_game(){
-      $game = new Game();
-      $game->playAutomaticGame(4, "Ümit");
+      $game = new AutomaticGame();
+      $game->executeGame(4);
 
       $this->assertEquals(4, count($game->getActiveCards()));
       $this->assertEquals(52, count($game->getHistoryCards()));
@@ -56,8 +56,8 @@ final class GameTest extends TestCase
    }
 
    public function test_play_round(){
-      $game = new Game();
-      $game = $game->startGame(4, "Ümit");
+      $game = new AutomaticGame();
+      $game = $game->setupGame(4);
 
       $game->playRound();
 
@@ -75,8 +75,8 @@ final class GameTest extends TestCase
    
    public function test_find_round_winner(){
 
-      $game = new Game();
-      $game->startGame(4, "Ümit");
+      $game = new AutomaticGame();
+      $game->setupGame(4);
 
       $cardsToSet = [new Card(["red","♥"], "A"), new Card(["red","♥"], "1"), new Card(["red","♥"], "2"), new Card(["red","♥"], "J")];
 
@@ -87,8 +87,8 @@ final class GameTest extends TestCase
       $this->assertEquals($game->getPlayers()[3], $winnerPlayer);
 
 
-      $game = new Game();
-      $game->startGame(4, "Ümit");
+      $game = new AutomaticGame();
+      $game->setupGame(4);
 
       $cardsToSet = [new Card(["red","♥"], "10"), new Card(["red","♦"], "10"), new Card(["black", "♠"], "10"), new Card(["black","♣"], "10")];
 
@@ -99,8 +99,8 @@ final class GameTest extends TestCase
       $this->assertEquals($game->getPlayers()[0], $winnerPlayer);
       
 
-      $game = new Game();
-      $game->startGame(4, "Ümit");
+      $game = new AutomaticGame();
+      $game->setupGame(4);
 
       $cardsToSet = [new Card(["red","♥"], "2"), new Card(["red","♦"], "Q"), new Card(["black", "♠"], "Q"), new Card(["black","♣"], "10")];
 
@@ -115,11 +115,11 @@ final class GameTest extends TestCase
 
    public function test_add_score_to_round_winner(){
       
-      $game = new Game();
-      $game->startGame(4, "Ümit");
+      $game = new AutomaticGame();
+      $game->setupGame(4);
 
 
-      $lastPlayedCards = $game->playAutomaticRound(); //it uses the private method addScoreToRoundWinner.
+      $lastPlayedCards = $game->playRound(); //it uses the private method addScoreToRoundWinner.
       $roundWinner = $game->findRoundWinner($lastPlayedCards);
 
       $this->assertEquals(1, $roundWinner->getScore());
@@ -128,8 +128,8 @@ final class GameTest extends TestCase
    
    public function test_find_game_winner(){
 
-      $game = new Game();
-      $game->startGame(4, "Ümit");
+      $game = new AutomaticGame();
+      $game->setupGame(4);
 
       $game->getPlayers()[0]->setScore(3);
       $game->getPlayers()[1]->setScore(2);
@@ -154,8 +154,8 @@ final class GameTest extends TestCase
 
    public function test_cannot_find_game_winner_when_tie(){
 
-      $game = new Game();
-      $game->startGame(4, "Ümit");
+      $game = new AutomaticGame();
+      $game->setupGame(4);
 
       $game->getPlayers()[0]->setScore(3);
       $game->getPlayers()[1]->setScore(3);

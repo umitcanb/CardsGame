@@ -1,6 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
-use App\Game;
+use App\ManualGame;
 /*
-$game = new Game();
-$game->playConsoleGame();
+
+$game = new ManualGame();
+$game->executeGame(4);

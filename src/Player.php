@@ -1,7 +1,7 @@
 <?php
 namespace App;
 
-final class Player{
+abstract class Player{
     protected $cards;
     protected $turnCount;
     protected $numberOfCards;
@@ -38,23 +38,10 @@ final class Player{
         $this->score = $score;
         return $this->score;
       }
-   
 
-    public function playRandomCard(){
+    abstract public function play();
 
-      $randomCardIndex = array_rand($this->cards, 1);
-
-      return $this->play($randomCardIndex);
-      
-
-    }
-
-    public function play(int $cardIndex){
-
-      if (!$this->checkIndexRange($cardIndex)){
-        print("the number indicated does not correspond to any card in your hand");
-        return $this->selectAndPlayCard();
-      }
+    public function playCard(int $cardIndex){
 
       $selectedCard = $this->cards[$cardIndex];
 
@@ -65,23 +52,7 @@ final class Player{
       return $selectedCard;
     }
 
-    public function showCards(){
-      $count = 1;
-      print("Your deck: "."\n");
-      foreach ($this->cards as &$card){
-        print("{$card->getSymbol()->getShape()} {$card->getValue()}, n#{$count}"."\n");
-        $count++;
-      }
-      return $this->cards;
-    }
-
-    public function selectAndPlayCard(){
-      $cardIndex = intval(readline('Enter the index number of the card you want to play')-1);
-
-      return $this->play($cardIndex);
-    }
-
-    private function checkIndexRange(int $cardIndex){
+    protected function checkIndexRange(int $cardIndex){
         return count($this->cards) > $cardIndex and $cardIndex >= 0;
     }
 
