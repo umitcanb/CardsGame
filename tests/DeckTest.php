@@ -27,7 +27,7 @@ final class DeckTest extends TestCase
 
    }
 
-   public function test_distribute_cards_to_players()
+   public function test_distribute_cards_to_players_when_players_have_equal_number_of_cards()
    {
        $deck = new Deck();
        $players = [new AutomaticPlayer(), new AutomaticPlayer()];
@@ -40,6 +40,26 @@ final class DeckTest extends TestCase
       
 
    }
+   
+   public function test_distribute_cards_to_players_when_players_do_not_have_equal_number_of_cards(){
+
+        $deck = new Deck();
+        $players = [new AutomaticPlayer(), new AutomaticPlayer(), new AutomaticPlayer(), new AutomaticPlayer(), new AutomaticPlayer()];
+        $playersWithCards = $deck->distributeCards($players);
+        $this->assertNotEquals(0, count($playersWithCards[0]->getCards()));
+        $this->assertFalse($playersWithCards[0]->getCards() == $playersWithCards[1]->getCards());
+        $this->assertFalse($playersWithCards[0]->getCards()[0] == $playersWithCards[1]->getCards()[0]);
+        $this->assertFalse($playersWithCards[0]->getCards()[5] == $playersWithCards[1]->getCards()[5]);
+
+        $this->assertTrue(count($playersWithCards[0]->getCards()) == count($playersWithCards[1]->getCards()));
+        $this->assertFalse(count($playersWithCards[0]->getCards()) == count($playersWithCards[4]->getCards()));
+        $this->assertEquals(10, count($playersWithCards[4]->getCards()));
+        $this->assertEquals(11, count($playersWithCards[0]->getCards()));
+
+
+
+   }
+
     
 
 }

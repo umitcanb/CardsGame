@@ -45,8 +45,7 @@ abstract class Game{
 
       $this->setupGame($numberOfPlayers);
 
-      //while error veriyor kartlar eşit dağıtılmadığında
-      while (count($this->historyCards) < 52){
+      while (intval(52 / $numberOfPlayers) > $this->turnCount){
         $this->playRound();
       }
 
