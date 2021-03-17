@@ -156,12 +156,24 @@ abstract class Game{
       }
 
       if ($this->isTie($winner)){
-        print ("There is tie!");
-        return Null;
+        return $this->getTieWinners($winner);
       }
 
       print ("The winner is {$winner->name} with the score {$winner->getScore()}!");
       return $winner;
+    }
+
+    private function getTieWinners(Player $winner){
+      $winners = [$winner];
+        foreach ($this->players as &$player){
+          if ($player->getScore() == $winner->getScore() && $player != $winner){
+            array_push($winners, $player);
+          }
+        }
+        foreach ($winners as &$tieWinner){
+          print ("The winners are {$tieWinner->name}, with the score {$tieWinner->getScore()}.");
+        }
+        return $winners; 
     }
 
     private function isTie(Player $winner){

@@ -50,7 +50,17 @@ final class AutomaticGameTest extends TestCase
 
       $this->assertEquals(5, count($game->findLastRound()->getActiveCards()));
       $this->assertEquals(50, count($game->getHistoryCards()));
-      $this->assertEquals(intval(52 / 5), $game->getTurnCount());
+      $this->assertEquals(10, $game->getTurnCount());
+      $this->assertNotNull($game->findGameWinner()); //bazen geçiyor bazen geçmiyor
+
+
+      $game = new AutomaticGame();
+      $game->executeGame(7);
+
+      $this->assertEquals(7, count($game->findLastRound()->getActiveCards()));
+      $this->assertEquals(49, count($game->getHistoryCards()));
+      $this->assertEquals(7, $game->getTurnCount());
+      $this->assertNotNull($game->findGameWinner()); //bazen geçiyor bazen geçmiyor
 
    }
    
@@ -80,7 +90,7 @@ final class AutomaticGameTest extends TestCase
 
    }
 
-   public function test_cannot_find_game_winner_when_tie(){
+   public function test_multiple_winners_when_tie(){
 
       $game = new AutomaticGame();
       $game->setupGame(4);
@@ -91,7 +101,7 @@ final class AutomaticGameTest extends TestCase
 
       $winningPlayer = $game->findGameWinner();
       
-      $this->assertNull($winningPlayer);
+      $this->assertTrue(1 < count($winningPlayer));
 
 
    }
