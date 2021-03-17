@@ -6,14 +6,15 @@ use App\Player;
 abstract class Game{
     protected $players;
     protected $turnCount;
-    protected $activeCards;
+    protected $historyRounds;
     protected $historyCards;
 
-    function __construct(Array $players = [], int $turnCount = 0, Array $activeCards = [], Array $historyCards = []) {
+    function __construct(Array $players = [], int $turnCount = 0, /*Array $activeCards = [], */ Array $historyRounds=[], Array $historyCards = []) {
 
       $this->players = $players;
       $this->turnCount = $turnCount;
-      $this->activeCards = $activeCards;
+    //  $this->activeCards = $activeCards;
+      $this->historyRounds = $historyRounds;
       $this->historyCards = $historyCards;
     
     }
@@ -26,6 +27,12 @@ abstract class Game{
       return $this->turnCount;
     }
 
+    public function increaseTurnCount(){
+      $this->turnCount +=1;
+      return $this->turnCount;
+    }
+
+/*
     public function getActiveCards(){
       return $this->activeCards;
     }
@@ -36,8 +43,31 @@ abstract class Game{
       }
       return $this->activeCards;
     }
+  */
+    public function addHistoryRound(Round $round){
+      array_push($this->historyRounds, $round);
+      return $this->historyRounds;
+    }
+
+    public function findLastRound(){
+
+      if ($this->turnCount == 0){
+        return null;
+      }
+      return $this->historyRounds[$this->turnCount - 1];
+
+    }
 
     public function getHistoryCards(){
+      return $this->historyCards;
+    }
+
+    public function getHistoryRounds(){
+      return $this->historyRounds;
+    }
+
+    public function addHistoryCard(Card $card){
+      array_push($this->historyCards, $card);
       return $this->historyCards;
     }
 
@@ -46,7 +76,8 @@ abstract class Game{
       $this->setupGame($numberOfPlayers);
 
       while (intval(52 / $numberOfPlayers) > $this->turnCount){
-        $this->playRound();
+        $round = new Round();
+        $round->playRound($this);
       }
 
       $this->findGameWinner();
@@ -65,7 +96,7 @@ abstract class Game{
 
       return $this;
     }
-
+/*
     public function playRound(){
 
       $this->activeCards = [];
@@ -114,6 +145,7 @@ abstract class Game{
         $winnerPlayer->setScore($newScore);
         return $winnerPlayer->getScore();
     }
+    */
 
     public function findGameWinner(){
       $winner = $this->players[0];
